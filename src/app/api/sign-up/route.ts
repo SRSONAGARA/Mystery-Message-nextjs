@@ -2,7 +2,6 @@ import dbConnect from "@/src/lib/dbConnect";
 import bcrypt from "bcryptjs";
 import { ApiResponse } from "@/src/types/ApiResponse";
 import UserModel from "@/src/models/user.model";
-import { success } from "zod";
 import { SendVerificationEmail } from "@/src/helpers/SendVerificationEmail";
 
 
