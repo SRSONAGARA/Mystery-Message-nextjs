@@ -1,8 +1,8 @@
-import dbConnect from "@/src/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import UserModel from "@/src/models/user.model";
 import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import UserModel from "@/models/user.model";
 
 export async function GET(request: Request) {
     await dbConnect();
