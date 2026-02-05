@@ -1,12 +1,14 @@
-import { Card, CardContent, CardHeader, CardTitle } from './card';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './alert-dialog';
-import { Button } from './button';
+'use client';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { X } from 'lucide-react';
 import dayjs from 'dayjs';
 import { Message } from '@/models/user.model';
 import axios, { AxiosError } from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
 import { toast } from 'sonner';
+import { Button } from './ui/button';
 
 
 type MessageCardProps = {

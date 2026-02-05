@@ -1,9 +1,11 @@
+'use client';
+
+import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { verifySchema } from "@/schemas/verifySchema";
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@react-email/components";
 import axios, { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -15,7 +17,11 @@ export default function VerifyAccount() {
     const params = useParams<{ username: string }>();
     const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),
+        defaultValues: {
+            code: "",
+        },
     });
+
 
     const onSubmit = async (data: z.infer<typeof verifySchema>) => {
         try {

@@ -4,8 +4,6 @@ import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-
-
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
@@ -13,7 +11,7 @@ export const authOptions: NextAuthOptions = {
             id: "credentials",
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "text" },
+                identifier: { label: "Email or Username", type: "text" },
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials: any): Promise<any> {
@@ -22,8 +20,8 @@ export const authOptions: NextAuthOptions = {
 
                     const user = await UserModel.findOne({
                         $or: [
-                            { email: credentials.identifier.email },
-                            { username: credentials.identifier.username }]
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }]
                     });
 
                     if (!user) {
@@ -52,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token._id = user._id?.toString();
-                token.isVerfied = user.isVerified;
+                token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
                 token.username = user.username;
             }
@@ -77,4 +75,3 @@ export const authOptions: NextAuthOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET
 }
-// export default NextAuth(authOptions)

@@ -22,10 +22,20 @@ export async function GET(request: Request) {
 
         const user = await UserModel.aggregate([
             { $match: { _id: userId } },
-            { $unwind: '$messages' },
-            { $sort: { '$messages.createdAt': -1 } },
-            { $group: { _id: '$_id', messages: { $push: '$messages' } } }
-        ]).exec();
+            {
+                $unwind: {
+                path: '$messages',
+                preserveNullAndEmptyArrays: true,
+                },
+            },
+            { $sort: { 'messages.createdAt': -1 } },
+            {
+                $group: {
+                _id: '$_id',
+                messages: { $push: '$messages' },
+                },
+            },
+            ]).exec();
 
         if (!user || user.length === 0) {
             return Response.json(
